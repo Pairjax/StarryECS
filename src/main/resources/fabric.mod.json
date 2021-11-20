@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "starryecs",
+  "version": "$version",
+
+  "name": "Starry ECS",
+  "description": "A Lightweight ECS framework for Fabric.",
+  "authors": [
+    "Pairjax"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.pairjax.starry.StarryKt::init"
+    ]
+  },
+  "mixins": [
+    "modid.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.8.7",
+    "fabric": "*",
+    "fabric-language-kotlin": "*",
+    "minecraft": "1.17.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}
