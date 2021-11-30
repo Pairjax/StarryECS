@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.pairjax.starry.StarryKt::init"
+      "com.pairjax.starry.StarryKt::init"
     ]
   },
   "mixins": [

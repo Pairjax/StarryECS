@@ -1,4 +1,4 @@
-package net.pairjax.starry.mixin;
+package com.pairjax.starry.mixin;
 
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;

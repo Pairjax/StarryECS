@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "net.pairjax.starry.mixin",
+  "package": "com.pairjax.starry.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
   ],
