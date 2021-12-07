@@ -8,14 +8,5 @@ import com.pairjax.starry.ids.Type
  * to identify them in the world.
  */
 class Entity(public val entityId: ID, public val name: String) {
-    var type: Type = Type()
-    var ids: MutableList<ID> = mutableListOf()
-
-    public fun addIDs(addIDs: List<ID>) {
-        addIDs.map { ids += it }
-    }
-
-    public fun removeIDs(subIDs: List<ID>) {
-        subIDs.map { ids -= it }
-    }
+    var type: Type = mutableListOf()
 }

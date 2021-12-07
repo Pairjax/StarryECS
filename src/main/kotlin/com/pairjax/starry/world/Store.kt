@@ -2,7 +2,6 @@ package com.pairjax.starry.world
 
 import com.pairjax.starry.ids.ID
 import com.pairjax.starry.ids.Table
-import org.jetbrains.annotations.Debug
 
 /**
  * Storage for tables & other essential data.
