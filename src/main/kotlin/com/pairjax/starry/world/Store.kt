@@ -1,5 +1,6 @@
 package com.pairjax.starry.world
 
+import com.pairjax.starry.ids.ID
 import com.pairjax.starry.ids.Table
 import org.jetbrains.annotations.Debug
 
@@ -7,7 +8,7 @@ import org.jetbrains.annotations.Debug
  * Storage for tables & other essential data.
  */
 class Store(world: World) {
-    var lastID: ULong = 0u; // The last ID used globally.
+    var lastID: ID = 0u; // The last ID used globally.
 
     var tables: List<Table> = listOf()
 

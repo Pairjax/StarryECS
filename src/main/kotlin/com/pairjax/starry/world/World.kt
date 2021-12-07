@@ -11,5 +11,7 @@ class World(name: String) {
 
     init {
         if (debug) print("[DEBUG] Loading World $name")
+
+
     }
 }
