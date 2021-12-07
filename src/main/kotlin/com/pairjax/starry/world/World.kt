@@ -11,7 +11,26 @@ class World(name: String) {
 
     init {
         if (debug) print("[DEBUG] Loading World $name")
+    }
 
+    fun createEntity() {
+
+    }
+
+    fun destroyEntity() {
+
+    }
+
+    /** Remove all IDs from an entity */
+    fun clearEntity() {
+
+    }
+
+    fun addIdToEntity() {
+
+    }
+
+    fun removeIdFromEntity() {
 
     }
 }

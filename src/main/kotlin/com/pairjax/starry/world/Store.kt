@@ -16,8 +16,4 @@ class Store(world: World) {
         if (world.debug) print("[DEBUG] Loading Storage...")
     }
 
-    fun addEntity() {
-
-    }
-
 }
