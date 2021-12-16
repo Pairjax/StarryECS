@@ -26,11 +26,11 @@ class World(name: String) {
 
     }
 
-    fun addIdToEntity() {
+    fun addElementToEntity() {
 
     }
 
-    fun removeIdFromEntity() {
+    fun removeElementFromEntity() {
 
     }
 }
