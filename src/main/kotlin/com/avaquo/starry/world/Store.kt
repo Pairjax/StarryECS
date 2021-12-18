@@ -1,7 +1,7 @@
 package com.avaquo.starry.world
 
 import com.avaquo.starry.entities.Entity
-import com.avaquo.starry.example.ExampleComponent
+import com.avaquo.starry.ids.Element
 import com.avaquo.starry.ids.ID
 import com.avaquo.starry.ids.Table
 
@@ -9,49 +9,78 @@ import com.avaquo.starry.ids.Table
  * Storage for tables & other essential data.
  */
 class Store(world: World) {
-    var heapID: ID = 0u; // The bottom available ID.
-    var stackID: ID = ULong.MAX_VALUE; // The top available ID.
 
+    private var heapID: ID = 0u // The bottom available ID.
+    // private var stackID: ID = ULong.MAX_VALUE // The top available ID.
+
+    // Every table in the World
     var tables: MutableList<Table> = mutableListOf()
 
-    var elementMap: MutableMap<ID, Any> = mutableMapOf()
-    var typeMap: MutableMap<String, ID> = mutableMapOf()
+    // Every element in the World
+    var elementMap: MutableMap<ID, Element> = mutableMapOf()
 
+    // Every ID that identifies a type element
+    private var typeMap: MutableMap<String, ID> = mutableMapOf()
 
     init {
         if (world.debug) print("[DEBUG] Loading Storage Defaults...")
     }
 
-    fun addElement(element: Any) {
-        val elemType = element::class.simpleName.toString()
+    private fun getNextID(): ULong {
+        return ++heapID
+    }
 
-        if (!typeMap.containsKey(elemType))
-        {
-            val id = getNextID()
+    /**
+     * Takes a new element and registers it into the ECS World.
+     * If the element's typeID is new, it will also be added.
+     * @param element The element added into the world.
+     */
+    fun addElement(element: Element): ID {
+        val typeElemID = element::class.simpleName.toString()
 
-            typeMap += Pair(elemType, id)
-            elementMap += Pair(id, elemType)
+        if (!typeMap.containsKey(typeElemID)) {
+            val typeId = getNextID()
+
+            typeMap += Pair(typeElemID, typeId)
+            elementMap += Pair(typeId, typeElemID)
         }
 
-        elementMap += Pair(getNextID(), element)
+        val id = getNextID()
+        elementMap += Pair(id, element)
+
+        return id
     }
 
-    fun getNextID(): ULong {
-        return ++heapID;
+    /**
+     * Takes a new element and registers it into the ECS World.
+     * If the element's typeID is new, it will also be added.
+     * @param element The element added into the world.
+     */
+    fun removeElement(id: ID): Boolean {
+        if (elementMap.containsKey(id)) {
+            elementMap.remove(id)
+            return true
+        }
+
+        return false
     }
 
-    fun updateTables(entity: Entity) {
+    /**
+     * Adds an Entity to its associated Table based on its Type.
+     * If the element's Type has no Table yet, it is created.
+     * @param entity The entity added to a Table.
+     */
+    fun stowEntity(entity: Entity) {
         var hasType = false
 
         tables.map {
             if (entity.type == it[0].type) {
                 if (!it.contains(entity)) it += entity
+
                 hasType = true
-                return;
+                return
             }
         }
-
-        print("Found entity? $hasType")
 
         if (!hasType) {
             val newTable: Table = mutableListOf(entity)

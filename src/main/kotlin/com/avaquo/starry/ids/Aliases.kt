@@ -9,14 +9,14 @@ import kotlin.Pair
  * Aliases allow us to follow the naming conventions of an ECS
  * while not making pointless shells for already-existing datatypes
  */
-public typealias Component = Any
+typealias Element = Any
 
-public typealias Type = MutableList<ID>
+typealias Type = MutableList<ID>
 
-public typealias IDs = MutableList<ID>
+typealias IDs = MutableList<ID>
 
-public typealias ID = ULong
+typealias ID = ULong
 
-public typealias Table = MutableList<Entity>
+typealias Table = MutableList<Entity>
 
-public typealias Pair = Pair<Relationship, Entity>
+typealias Pair = Pair<Relationship, Entity>
