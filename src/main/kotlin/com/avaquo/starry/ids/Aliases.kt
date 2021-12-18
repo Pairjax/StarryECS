@@ -13,6 +13,8 @@ public typealias Component = Any
 
 public typealias Type = MutableList<ID>
 
+public typealias IDs = MutableList<ID>
+
 public typealias ID = ULong
 
 public typealias Table = MutableList<Entity>

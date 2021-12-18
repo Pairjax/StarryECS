@@ -5,15 +5,15 @@ package com.avaquo.starry.world
  * but they will not interact unless you design specific Systems to interface between
  * them.
  */
-class World(name: String) {
-    val debug = true;
-    val storage: Store = Store(this);
+class World(name: String, debug: Boolean) {
+    public val debug: Boolean = true
+    val storage: Store = Store(this)
 
     init {
         if (debug) print("[DEBUG] Loading World $name")
     }
 
-    fun createEntity() {
+    fun createEntity(name: String) {
 
     }
 

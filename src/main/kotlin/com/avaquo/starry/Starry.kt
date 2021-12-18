@@ -2,7 +2,7 @@ package com.avaquo.starry
 
 import com.avaquo.starry.world.World
 
-var world: World = World("Core")
+var world: World = World("Core", true)
 
 @Suppress("unused")
 
