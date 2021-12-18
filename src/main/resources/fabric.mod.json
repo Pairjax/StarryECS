@@ -14,12 +14,12 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/modid/ECSLogo.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.pairjax.starry.StarryKt::init"
+      "com.avaquo.starry.StarryKt::init"
     ]
   },
   "mixins": [
