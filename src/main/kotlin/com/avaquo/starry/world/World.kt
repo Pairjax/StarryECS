@@ -1,6 +1,7 @@
 package com.avaquo.starry.world
 
 import com.avaquo.starry.entities.Entity
+import com.avaquo.starry.ids.Element
 import com.avaquo.starry.ids.ID
 
 /**
@@ -16,26 +17,70 @@ class World(name: String, debug: Boolean) {
         if (debug) print("[DEBUG] Loading World $name")
     }
 
-    fun createEntity(name: String) {
+    //region ENTITIES
+    fun createEntity(name: String): Entity {
         val e = Entity(name)
+
         storage.addElement(e)
-        storage.stowEntity(e)
+        storage.addToTable(e)
+
+        return e
     }
 
-    fun destroyEntity(entityID: ID) {
+    fun destroyEntity(id: ID) {
+        val e = storage.getEntity(id)
 
+        for (elementId in e.ids) storage.removeElement(elementId)
+
+        storage.removeFromTable(e)
     }
 
     /** Remove all IDs from an entity */
-    fun clearEntity() {
+    fun clearEntity(id: ID) {
+        val e = storage.getEntity(id)
 
+        for (elementId in e.ids) storage.removeElement(elementId)
+
+        storage.removeFromTable(e)
+
+        e.ids.clear()
+        e.type.clear()
+
+        storage.addToTable(e)
     }
 
-    fun addElementToEntity() {
+    /**
+     * Adds a single element to an entity.
+     */
+    fun addElementToEntity(entityID: ID, element: Element) {
+        val e = storage.getEntity(entityID)
 
+        storage.removeFromTable(e)
+
+        val elementID = storage.addElement(element)
+
+        e.ids += elementID
+
+        storage.addToTable(e)
     }
 
-    fun removeElementFromEntity() {
+    /**
+     * Removes a single element from an entity.
+     */
+    fun removeElementFromEntity(entityID: ID, elementID: ID) {
+        val e = storage.getEntity(entityID)
 
+        storage.removeFromTable(e)
+
+        storage.removeElement(elementID)
+
+        e.ids -= elementID
+
+        storage.addToTable(e)
     }
+    //endregion
+
+    //region PIPELINE
+
+    //endregion
 }
