@@ -1,4 +1,5 @@
-plugins {id 'fabric-loom'
+plugins {
+    id 'fabric-loom'
     id 'maven-publish'
     id "org.jetbrains.kotlin.jvm"
 }
