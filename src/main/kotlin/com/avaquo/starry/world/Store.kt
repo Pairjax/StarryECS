@@ -6,7 +6,11 @@ import com.avaquo.starry.ids.ID
 import com.avaquo.starry.ids.Table
 
 /**
- * Storage for tables & other essential data.
+ * Stores all the data in a World. Contains:
+ * - most recent valid ID
+ * - tables for all Entities
+ * - map of all elements in the world
+ * - list of all valid types of elements
  */
 class Store(world: World) {
 
