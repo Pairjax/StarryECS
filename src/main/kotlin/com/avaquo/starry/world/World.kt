@@ -10,7 +10,7 @@ import com.avaquo.starry.ids.ID
  * them.
  */
 class World(name: String, debug: Boolean) {
-    public val debug: Boolean = true
+    val debug: Boolean = true
     val storage: Store = Store(this)
 
     init {
@@ -19,9 +19,9 @@ class World(name: String, debug: Boolean) {
 
     //region ENTITIES
     fun createEntity(name: String): Entity {
-        val e = Entity(name)
+        val e = Entity(name, storage.getNextID())
 
-        storage.addElement(e)
+        storage.addElement(name)
         storage.addToTable(e)
 
         return e

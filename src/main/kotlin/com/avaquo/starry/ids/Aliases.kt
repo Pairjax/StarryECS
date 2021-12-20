@@ -17,6 +17,6 @@ typealias IDs = MutableList<ID>
 
 typealias ID = ULong
 
-typealias Table = MutableList<Entity>
+typealias Table = MutableList<ID>
 
 typealias Pair = Pair<Relationship, Entity>
