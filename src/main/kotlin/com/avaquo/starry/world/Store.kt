@@ -73,6 +73,8 @@ class Store(world: World) {
 
     fun getEntity(id: ID): Entity { return elementMap[id] as Entity }
 
+    fun getType(typeName: String): ID { return typeMap[typeName] as ID }
+
     /**
      * Adds an Entity to its associated Table based on its Type.
      * If the element's Type has no Table yet, it is created.

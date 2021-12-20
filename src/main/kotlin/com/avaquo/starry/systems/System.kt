@@ -1,4 +1,12 @@
 package com.avaquo.starry.systems
 
-class System {
-}
+import com.avaquo.starry.entities.Entity
+import com.avaquo.starry.ids.ID
+import com.avaquo.starry.queries.Query
+
+open class System(
+    name: String,
+    id: ID,
+    val query: Query,
+    var callback: () -> Unit
+): Entity(name, id)

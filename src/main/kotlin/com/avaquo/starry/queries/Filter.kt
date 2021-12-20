@@ -13,6 +13,10 @@ open class Filter(
     private val store: Store,
     private val terms: MutableList<Term>
 ) {
+    /**
+     * A robust search tool for finding specific entities in the world based on its individual elements.
+     * @return A list of all entities matching the given terms.
+     */
     fun search(): IDs {
         val foundEntities: IDs = mutableListOf()
 
@@ -32,9 +36,10 @@ open class Filter(
     }
 
     /**
-     * Returns a list of all entities which do not match the specified parameter.
+     * Helper function to find non-matching entities.
      * @param parameter The specific data to be compared with.
      * @param table A list of all entities which are being checked
+     * @return A list of all entities which do not match the specified parameter.
      */
     private fun trimEntities(parameter: Any, table: Table): IDs {
         val trimEntities: IDs = mutableListOf()

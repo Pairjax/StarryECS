@@ -13,8 +13,9 @@ import com.avaquo.starry.world.Store
 class Query(
     private val store: Store,
     private val filter: Filter,
-    val cache: HashMap<ID, Entity>
 ) {
+    val cache: HashMap<ID, Entity> = hashMapOf()
+
     fun searchAndCache() {
         val ids = filter.search()
 

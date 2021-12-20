@@ -1,6 +1,5 @@
 package com.avaquo.starry.ids
 
-import com.google.common.primitives.UnsignedInts
 import com.avaquo.starry.entities.Entity
 import com.avaquo.starry.entities.Relationship
 import kotlin.Pair
