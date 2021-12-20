@@ -6,7 +6,11 @@ import com.avaquo.starry.ids.ID
 import com.avaquo.starry.ids.Table
 
 /**
- * Storage for tables & other essential data.
+ * Stores all the data in a World. Contains:
+ * - most recent valid ID
+ * - tables for all Entities
+ * - map of all elements in the world
+ * - list of all valid types of elements
  */
 class Store(world: World) {
 
@@ -15,18 +19,20 @@ class Store(world: World) {
 
     // Every table in the World
     var tables: MutableList<Table> = mutableListOf()
+        private set
 
     // Every element in the World
     var elementMap: MutableMap<ID, Element> = mutableMapOf()
+        private set
 
     // Every ID that identifies a type element
-    private var typeMap: MutableMap<String, ID> = mutableMapOf()
+    var typeMap: MutableMap<String, ID> = mutableMapOf()
 
     init {
         if (world.debug) print("[DEBUG] Loading Storage Defaults...")
     }
 
-    private fun getNextID(): ULong { return ++heapID }
+    fun getNextID(): ULong { return ++heapID }
 
     /**
      * Takes a new element and registers it into the ECS World.
@@ -76,8 +82,10 @@ class Store(world: World) {
         var hasType = false
 
         tables.map {
-            if (entity.type == it[0].type) {
-                if (!it.contains(entity)) it += entity
+            val e = elementMap[it[0]] as Entity
+
+            if (entity.type == e.type) {
+                if (!it.contains(entity.id)) it += entity.id
 
                 hasType = true
                 return
@@ -85,7 +93,7 @@ class Store(world: World) {
         }
 
         if (!hasType) {
-            val newTable: Table = mutableListOf(entity)
+            val newTable: Table = mutableListOf(entity.id)
             tables += newTable
         }
     }
@@ -95,8 +103,10 @@ class Store(world: World) {
      */
     fun removeFromTable(entity: Entity) {
         tables.map {
-            if (entity.type == it[0].type) {
-                if (!it.contains(entity)) it -= entity
+            val e = elementMap[it[0]] as Entity
+
+            if (entity.type == e.type) {
+                if (!it.contains(entity.id)) it -= entity.id
                 if (it.isEmpty()) tables.remove(it)
 
                 return

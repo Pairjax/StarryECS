@@ -8,7 +8,7 @@ import com.avaquo.starry.ids.Type
  * Starry Entities are capable of storing any ID, but also have their own ID
  * to identify them in the world.
  */
-class Entity(public val name: String) {
+class Entity(val name: String, val id: ID) {
     var type: Type = mutableListOf()
     var ids: IDs = mutableListOf()
 }

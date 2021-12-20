@@ -1,5 +1,6 @@
 package com.avaquo.starry
 
+import com.avaquo.starry.queries.Term
 import com.avaquo.starry.world.World
 
 var world: World = World("Core", true)
@@ -10,4 +11,5 @@ var world: World = World("Core", true)
 // However, some things (like resources) may still be uninitialized.
 fun init() {
     world.createEntity("TestEntity")
+    val term = Term(world.storage, 0u)
 }
