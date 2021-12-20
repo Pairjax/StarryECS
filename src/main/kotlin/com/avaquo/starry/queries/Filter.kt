@@ -4,6 +4,11 @@ import com.avaquo.starry.ids.IDs
 import com.avaquo.starry.ids.Table
 import com.avaquo.starry.world.Store
 
+/**
+ * A search for an entity based on specific terms.
+ * @param store Reference to the world's storage
+ * @param terms The list of Terms used to compare to a given entity.
+ */
 open class Filter(
     private val store: Store,
     private val terms: MutableList<Term>
@@ -16,9 +21,8 @@ open class Filter(
                 foundEntities += table
 
                 terms.map { term ->
-                    if (term.parameter != null
-                        && term.parameter::class.simpleName == store.getElement(term.idType)) {
-                        foundEntities -= trimEntities(term, table)
+                    if (term.parameter != null) {
+                        foundEntities -= trimEntities(term.parameter, table)
                     }
                 }
             }
@@ -27,16 +31,22 @@ open class Filter(
         return foundEntities
     }
 
-    private fun trimEntities(term: Term, table: Table): IDs {
+    /**
+     * Returns a list of all entities which do not match the specified parameter.
+     * @param parameter The specific data to be compared with.
+     * @param table A list of all entities which are being checked
+     */
+    private fun trimEntities(parameter: Any, table: Table): IDs {
         val trimEntities: IDs = mutableListOf()
 
         table.map { e ->
-            if (isInvalidParameter(store.getEntity(e).ids, term.parameter!!)) trimEntities += e
+            if (isInvalidParameter(store.getEntity(e).ids, parameter)) trimEntities += e
         }
 
         return trimEntities
     }
 
+    /** Checks if a single entity contains the desired parameter */
     private fun isInvalidParameter(elements: IDs, parameter: Any): Boolean {
         elements.map {
             if (store.getElement(it) == parameter) return false

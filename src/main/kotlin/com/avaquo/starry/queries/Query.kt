@@ -2,16 +2,23 @@ package com.avaquo.starry.queries
 
 import com.avaquo.starry.entities.Entity
 import com.avaquo.starry.ids.ID
-import com.avaquo.starry.ids.IDs
 import com.avaquo.starry.world.Store
 
+/**
+ * A cached search for an entity based on specific terms.
+ * @param store Reference to the world's storage
+ * @param filter The search engine which seeks for the entity
+ * @param cache The local storage for the entity.
+ */
 class Query(
-    val store: Store,
-    val filter: Filter,
-    var cache: HashMap<ID, Entity>
+    private val store: Store,
+    private val filter: Filter,
+    val cache: HashMap<ID, Entity>
 ) {
     fun searchAndCache() {
         val ids = filter.search()
+
+        cache.clear()
 
         for (id in ids) cache[id] = store.getEntity(id)
     }
