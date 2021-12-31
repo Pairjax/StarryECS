@@ -15,31 +15,29 @@ import com.avaquo.starry.ids.Table
 class Store(world: World) {
 
     private var heapID: ID = 0u // The bottom available ID.
-    // private var stackID: ID = ULong.MAX_VALUE // The top available ID.
 
     // Every table in the World
-    var tables: MutableList<Table> = mutableListOf()
-        private set
+    val tables: MutableList<Table> = mutableListOf()
 
     // Every element in the World
-    var elementMap: MutableMap<ID, Element> = mutableMapOf()
-        private set
+    private val elementMap: MutableMap<ID, Element> = mutableMapOf()
 
     // Every ID that identifies a type element
-    var typeMap: MutableMap<String, ID> = mutableMapOf()
+    val typeMap: MutableMap<String, ID> = mutableMapOf()
 
     init {
-        if (world.debug) print("[DEBUG] Loading Storage Defaults...")
+        if (world.debug) println("[DEBUG] Loading Storage Defaults...")
     }
 
-    fun getNextID(): ULong { return ++heapID }
+    fun getNextID(): ULong { return heapID++ }
 
     /**
      * Takes a new element and registers it into the ECS World.
      * If the element's typeID is new, it will also be added.
      * @param element The element added into the world.
+     * @param id the ID of the element.
      */
-    fun addElement(element: Element): ID {
+    fun addElement(element: Element, id: ID) {
         val typeElemID = element::class.simpleName.toString()
 
         if (!typeMap.containsKey(typeElemID)) {
@@ -49,8 +47,18 @@ class Store(world: World) {
             elementMap += Pair(typeId, typeElemID)
         }
 
-        val id = getNextID()
         elementMap += Pair(id, element)
+    }
+
+    /**
+     * Takes a new element without an ID and adds it to the table and creates a new ID for it.
+     * @param element The element added into the world.
+     * @return the element's new ID.
+     */
+    fun addElement(element: Element): ID {
+        val id = getNextID()
+
+        addElement(element, id)
 
         return id
     }
@@ -69,7 +77,11 @@ class Store(world: World) {
         return false
     }
 
-    fun getElement(id: ID): Element { return elementMap[id] as Element }
+    fun getElement(id: ID): Element {
+        if (!elementMap.containsKey(id)) return false
+
+        return elementMap[id] as Element
+    }
 
     fun getEntity(id: ID): Entity { return elementMap[id] as Entity }
 
@@ -105,10 +117,12 @@ class Store(world: World) {
      */
     fun removeFromTable(entity: Entity) {
         tables.map {
-            val e = elementMap[it[0]] as Entity
+            val e = getEntity(it[0])
 
             if (entity.type == e.type) {
-                if (!it.contains(entity.id)) it -= entity.id
+                if (it.contains(entity.id)) {
+                    it -= entity.id
+                }
                 if (it.isEmpty()) tables.remove(it)
 
                 return

@@ -29,6 +29,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+
 }
 
 processResources {
@@ -59,6 +61,22 @@ java {
 jar {
     from ("LICENSE") {
         rename { "${it}_${project.archivesBaseName}"}
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+
+    systemProperty 'java.util.logging.config.file', "${project.buildDir}/test/resources/logging-test.properties"
+
+    forkEvery = 1
+
+    testLogging {
+        showStandardStreams = true
     }
 }
 

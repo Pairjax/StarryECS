@@ -12,7 +12,7 @@ import com.avaquo.starry.world.Store
  */
 class Query(
     private val store: Store,
-    private val filter: Filter,
+    val filter: Filter,
 ) {
     val cache: HashMap<ID, Entity> = hashMapOf()
 
