@@ -11,7 +11,7 @@ import com.avaquo.starry.world.Store
  */
 open class Filter(
     private val store: Store,
-    private val terms: MutableList<Term>
+    val terms: MutableList<Term>
 ) {
     /**
      * A robust search tool for finding specific entities in the world based on its individual elements.
