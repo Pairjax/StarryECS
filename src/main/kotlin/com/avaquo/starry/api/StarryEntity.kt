@@ -8,14 +8,32 @@ class StarryEntity(
     starryWorld: StarryWorld,
 
     val name: String,
-    val elements: MutableList<Element>?
+    elements: List<Element> = listOf()
 ) {
-    val world = starryWorld.world
+    private val world = starryWorld.world
 
-    private val entity: Entity = starryWorld.createInternalEntity(this)
+    val internalEntity: Entity = world.createEntity(name)
+
+    init { addElements(elements) }
+
+    fun getElement(elementName: String): Element {
+        for (id in internalEntity.ids) {
+            val element = world.storage.getElement(id)
+            if (element::class.simpleName == elementName) return element
+        }
+
+        return false
+    }
 
     fun addElement(element: Element) {
-        world.addElementToEntity(entity.id, element)
+        // Checking if it is a primitive type (which is not allowed)
+        if (element::class.javaPrimitiveType != null) throw Exception()
+
+        for (id in internalEntity.ids) {
+            if (world.storage.getElement(id)::class == element::class) throw Exception()
+        }
+
+        world.addElementToEntity(internalEntity.id, element)
     }
 
     fun addElements(newElements: List<Element>) {
@@ -23,17 +41,17 @@ class StarryEntity(
     }
 
     fun removeElement(elementName: String) {
-        world.removeElementFromEntity(entity.id, getElementID(elementName))
+        world.removeElementFromEntity(internalEntity.id, getElementID(elementName))
     }
 
     fun removeElements(elementsName: List<String>) {
         for (element in elementsName) removeElement(element)
     }
 
-    fun destroy() { world.destroyEntity(entity.id) }
+    fun destroy() { world.destroyEntity(internalEntity.id) }
 
     private fun getElementID(name: String): ID {
-        for (id in entity.ids) {
+        for (id in internalEntity.ids) {
             if (world.storage.getElement(id)::class.simpleName == name) return id
         }
 
