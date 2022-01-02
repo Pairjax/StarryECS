@@ -66,6 +66,7 @@ class World(name: String, debug: Boolean) {
         val elementID = storage.addElement(element)
 
         e.ids += elementID
+        e.type += storage.getType(element::class.simpleName!!)
 
         storage.addToTable(e)
     }

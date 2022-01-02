@@ -53,9 +53,7 @@ open class Filter(
 
     /** Checks if a single entity contains the desired parameter */
     private fun isInvalidParameter(elements: IDs, parameter: Any): Boolean {
-        elements.map {
-            if (store.getElement(it) == parameter) return false
-        }
+        elements.map { if (store.getElement(it) == parameter) return false }
 
         return true
     }

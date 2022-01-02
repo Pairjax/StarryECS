@@ -45,7 +45,7 @@ class EntityTest {
 
             Assertions.assertAll(
                 Executable { Assertions.assertEquals(storage.getElement(entity.ids[0]), username) },
-                Executable { Assertions.assertEquals(1, entity.ids.size) },
+                Executable { Assertions.assertEquals(1, entity.ids.size) }
             )
 
             val elementID = entity.ids[0]

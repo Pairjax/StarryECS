@@ -93,23 +93,18 @@ class Store(world: World) {
      * @param entity The entity added to a Table.
      */
     fun addToTable(entity: Entity) {
-        var hasType = false
-
         tables.map {
             val e = elementMap[it[0]] as Entity
 
             if (entity.type == e.type) {
                 if (!it.contains(entity.id)) it += entity.id
 
-                hasType = true
                 return
             }
         }
 
-        if (!hasType) {
-            val newTable: Table = mutableListOf(entity.id)
-            tables += newTable
-        }
+        val newTable: Table = mutableListOf(entity.id)
+        tables += newTable
     }
 
     /**
@@ -123,10 +118,32 @@ class Store(world: World) {
                 if (it.contains(entity.id)) {
                     it -= entity.id
                 }
-                if (it.isEmpty()) tables.remove(it)
-
+                if (it.isEmpty()) {
+                    tables.remove(it)
+                }
                 return
             }
+        }
+    }
+
+    fun printTables() {
+        println("Tables: ")
+        tables.map { table ->
+            val tableType = getEntity(table[0]).type
+
+            println("Table Type: ")
+            tableType.map {
+                val element = getElement(it)
+                print("$element, ")
+            }
+
+            println("\nEntities in table: ")
+            table.map { entity ->
+                val entityName = getEntity(entity).name
+                print("$entityName, ")
+            }
+
+            println("\n------------------")
         }
     }
 }
