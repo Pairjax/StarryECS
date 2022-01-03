@@ -4,7 +4,7 @@ import com.avaquo.starry.queries.Filter
 import com.avaquo.starry.queries.Query
 import com.avaquo.starry.queries.Term
 
-class StarryQuery(starryWorld: StarryWorld) {
+class StarryQuery(private val starryWorld: StarryWorld) {
     private val storage = starryWorld.world.storage
 
     val query = Query(storage, Filter(storage, mutableListOf()))
@@ -27,6 +27,14 @@ class StarryQuery(starryWorld: StarryWorld) {
 
     fun removeTerms(terms: List<Pair<String, Any?>>) {
         for (term in terms) removeTerm(term.first, term.second)
+    }
+
+    fun getCache(): List<StarryEntity> {
+        val cache: MutableList<StarryEntity> = mutableListOf()
+
+        for (entity in query.cache) cache += StarryEntity(starryWorld, entity.value.name, listOf(), entity.value)
+
+        return cache
     }
 
 }

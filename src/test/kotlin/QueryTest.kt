@@ -1,3 +1,5 @@
+import com.avaquo.starry.api.StarryEntity
+import com.avaquo.starry.api.StarryWorld
 import com.avaquo.starry.queries.Filter
 import com.avaquo.starry.queries.Query
 import com.avaquo.starry.queries.Term
@@ -182,6 +184,21 @@ class QueryTest {
             world.destroyEntity(e1.id)
             world.destroyEntity(e2.id)
             world.destroyEntity(e3.id)
+        }
+    }
+
+    @Nested
+    inner class QueriesAPI {
+        private val world = StarryWorld("TestWorld", false)
+        private val storage = world.world.storage
+
+        @Test
+        fun `Create a Filter with the API`() {
+            val e1 = StarryEntity(world, "TestEntity01", listOf(component1))
+            val e2 = StarryEntity(world, "TestEntity02", listOf(component1))
+            val e3 = StarryEntity(world, "TestEntity03")
+
+            // TODO: API tests
         }
     }
 }

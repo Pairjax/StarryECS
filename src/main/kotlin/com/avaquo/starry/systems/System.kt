@@ -7,6 +7,6 @@ import com.avaquo.starry.queries.Query
 open class System(
     name: String,
     id: ID,
-    val query: Query,
+    val queries: MutableList<Query>,
     var callback: () -> Unit
 ): Entity(name, id)

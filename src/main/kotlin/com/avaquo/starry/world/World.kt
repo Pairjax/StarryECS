@@ -20,6 +20,7 @@ class World(name: String, debug: Boolean) {
 
     init {
         if (debug) println("[DEBUG] Loading World $name")
+        runPipeline()
     }
 
     //region ENTITIES
@@ -88,8 +89,8 @@ class World(name: String, debug: Boolean) {
     //endregion
 
     //region PIPELINE
-    fun createSystem(name: String, query: Query, callback: () -> Unit): System {
-        val s = System(name, storage.getNextID(), query, callback)
+    fun createSystem(name: String, queries: MutableList<Query>, callback: () -> Unit): System {
+        val s = System(name, storage.getNextID(), queries, callback)
 
         storage.addElement(s)
         storage.addToTable(s)
@@ -105,8 +106,8 @@ class World(name: String, debug: Boolean) {
         pipeline.phases -= phase
     }
 
-    fun runPipeline() {
-        pipeline.runPhases()
+    private fun runPipeline() {
+        while (true) pipeline.runPhases()
     }
     //endregion
 }

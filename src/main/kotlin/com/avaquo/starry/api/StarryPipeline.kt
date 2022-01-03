@@ -6,17 +6,13 @@ class StarryPipeline(
     starryWorld: StarryWorld,
 
     val name: String,
-    val phases: MutableList<StarryPhase>
+    phases: MutableList<StarryPhase>
 ) {
+    private val world = starryWorld.world
+
     init {
         for (phase in phases) {
-            starryWorld.world.addPipelinePhase(buildPhase(phase))
+            starryWorld.world.addPipelinePhase(Phase(phase.name, mutableListOf(), phase.isActive))
         }
-    }
-
-    fun buildPhase(phase: StarryPhase): Phase {
-
-
-        return Phase(phase.name, mutableListOf(), phase.isActive)
     }
 }

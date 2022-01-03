@@ -8,13 +8,14 @@ class StarryEntity(
     starryWorld: StarryWorld,
 
     val name: String,
-    elements: List<Element> = listOf()
+    elements: List<Element> = listOf(),
+    val internalEntity: Entity = starryWorld.world.createEntity(name)
 ) {
     private val world = starryWorld.world
 
-    val internalEntity: Entity = world.createEntity(name)
-
-    init { addElements(elements) }
+    init {
+        addElements(elements)
+    }
 
     fun getElement(elementName: String): Element {
         for (id in internalEntity.ids) {
