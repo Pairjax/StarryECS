@@ -186,19 +186,4 @@ class QueryTest {
             world.destroyEntity(e3.id)
         }
     }
-
-    @Nested
-    inner class QueriesAPI {
-        private val world = StarryWorld("TestWorld", false)
-        private val storage = world.world.storage
-
-        @Test
-        fun `Create a Filter with the API`() {
-            val e1 = StarryEntity(world, "TestEntity01", listOf(component1))
-            val e2 = StarryEntity(world, "TestEntity02", listOf(component1))
-            val e3 = StarryEntity(world, "TestEntity03")
-
-            // TODO: API tests
-        }
-    }
 }

@@ -11,10 +11,5 @@ class StarryWorld(name: String, debug: Boolean) {
     //region INTERNAL_SYSTEMS
     /** This is the internal world beneath the API wrapper. Don't use this! */
     val world: World = World(name, debug)
-
-    //endregion
-
-    //region HELPER_FUNCTIONS
-
     //endregion
 }

@@ -4,6 +4,10 @@ import com.avaquo.starry.entities.Entity
 import com.avaquo.starry.ids.Element
 import com.avaquo.starry.ids.ID
 
+/**
+ * A single entity within the world, which can contain any number of elements and
+ *
+ */
 class StarryEntity(
     starryWorld: StarryWorld,
 

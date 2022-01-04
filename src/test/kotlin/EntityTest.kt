@@ -37,7 +37,6 @@ class EntityTest {
         @Test
         fun `Add an Element to the Entity, then Remove it`() {
             val entity = world.createEntity("TestEntity")
-            val entityID = entity.id
 
             val username = "User01"
 
@@ -61,7 +60,6 @@ class EntityTest {
         @Test
         fun `Remove an Entity from the World`() {
             val entity = world.createEntity("TestEntity")
-            val entityID = entity.id
 
             val username = "User03"
 
